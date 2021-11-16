@@ -1,0 +1,31 @@
+//   ccbbabbcc
+function LongestPalinString(str,left,right){
+    while(left>=0&&right<str.length){
+        if(str[left]===str[right]){
+            left--;
+            right++;
+        }        
+        else{
+            break;
+        }
+    }
+    return str.substring(left+1,right);
+}
+
+
+function main(str){
+    var max="";
+    var temp="";
+    for(var i=0;i<str.length;i++){
+        var odd = LongestPalinString(str,i-1,i+1);
+        var even = LongestPalinString(str,i,i+1);
+        temp = odd.length>even.length? odd : even;
+        max = max.length<temp.length? temp: max;
+    }
+    
+    return max;
+}
+
+
+var result = main("aaccbbbbccfcccbbbbccc");
+console.log(result);

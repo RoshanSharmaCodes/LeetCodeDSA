@@ -1,0 +1,52 @@
+class Graph{
+    constructor(){
+        this.adjacencyList = {};
+    }
+    
+    addVertex(val){
+        if(!this.adjacencyList[val]){
+            this.adjacencyList[val] = [];
+        }
+    }
+    
+    
+    addEdge(val1,val2){
+        if(this.adjacencyList[val1].includes(val2)||this.adjacencyList[val2].includes(val1)){
+            console.log("Already Exist")
+        }
+        else{
+            this.adjacencyList[val1].push(val2);
+        this.adjacencyList[val2].push(val1);
+        }
+        
+    }
+    
+    removeEdge(val1,val2){
+    if(this.adjacencyList[val1]&&this.adjacencyList[val2]){
+    this.adjacencyList[val1] = this.adjacencyList[val1].filter(v => v!==val2)
+    this.adjacencyList[val2] = this.adjacencyList[val2].filter(v => v!==val1) 
+    }else{
+     console.log("Doesn't Exist")   
+    }
+    }
+    
+    removeVertex(val1){
+        for(let val2 of this.adjacencyList[val1]){
+            this.removeEdge(val1,val2);
+        }
+        delete this.adjacencyList[val1];
+    }
+}
+
+var graph = new Graph();
+graph.addVertex("Tokyo");
+graph.addVertex("Paris");
+graph.addVertex("London");
+graph.addVertex("Delhi");
+graph.addEdge("Tokyo","Delhi")
+graph.addEdge("Tokyo","Paris")
+graph.addEdge("London","Delhi")
+graph.addEdge("London","Delhi")
+graph.addEdge("London","Paris")
+graph.removeVertex("Paris")
+console.log(graph.adjacencyList);

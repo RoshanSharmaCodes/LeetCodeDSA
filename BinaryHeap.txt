@@ -1,0 +1,87 @@
+class MaxBinaryHeap{
+    constructor(){
+        this.values = [];
+    }
+    
+    insert(val){
+        this.values.push(val);
+        this.bubble();
+    }
+    bubble(){
+        let idx = this.values.length - 1;
+        let element = this.values[idx];
+        while(idx>0){
+            let parentidx = Math.floor((idx-1)/2)
+            let parent = this.values[parentidx];
+            if(parent>=element) break;
+            this.values[parentidx] = element;
+            this.values[idx] = parent;
+            idx = parentidx;
+        }
+    }
+    
+    printHeap(){
+        console.log(this.values);
+    }
+    
+    extractMax(){
+        var maxNum = this.values[0];
+        var end = this.values.pop();
+        if(this.values.length>0){
+            this.values[0] = end;
+            this.sinkDown();
+        }
+        
+        console.log(maxNum);
+        
+    }
+    
+    sinkDown(){
+        let idx = 0;
+        const length = this.values.length;
+        var element = this.values[idx];
+        while(true){
+            var leftchildidx = 2*idx+1;
+            var rightchildidx = 2*idx+2;
+            var leftchild, rightchild;
+            var swap = null;
+            if(leftchildidx<length){
+                leftchild = this.values[leftchildidx];
+                if(leftchild>element){
+                    swap = leftchildidx;
+                }
+            }
+            
+            if(rightchildidx<length){
+                rightchild = this.values[rightchildidx];
+                if((swap===null && rightchild>element)
+                || (swap!==null&&rightchild>leftchild)){
+                swap = rightchildidx;
+                }
+            }
+            
+            if(swap===null) break;
+            this.values[idx] = this.values[swap];
+            this.values[swap] = element;
+            idx = swap;
+        }
+    }
+    
+    
+    
+}
+
+
+let heap = new MaxBinaryHeap();
+heap.insert(41);
+heap.insert(39);
+heap.insert(33);
+heap.insert(18);
+heap.insert(27);
+heap.insert(12);
+heap.insert(55);
+heap.printHeap();
+heap.extractMax();
+heap.printHeap();
+heap.extractMax();
+

@@ -1,0 +1,24 @@
+//Best Case O(n) if using swap variable otherwise O(n2)
+//Worst Case O(n2)
+//Bubble Sort
+function bubblesort(arr){
+    for(var i=0;i<arr.length;i++)
+    {
+        //this swap variable is declared to stop extra loop if
+        //array is already sorted
+        var swap=true;
+        for(var j=0;j<arr.length-1;j++){
+            if(arr[j]>arr[j+1]){
+                var temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                swap=false;
+            }
+        }
+        if(swap) break;
+    }
+    
+    console.log(arr);
+}
+
+bubblesort([4,2,3,6,18,7,1,10]);

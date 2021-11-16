@@ -1,0 +1,170 @@
+class Node{
+    constructor(val){
+        this.val = val;
+        this.addr = null;
+    }
+}
+
+class LinkedList{
+    constructor(){
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+    
+    push(val){
+        var node = new Node(val);
+        if(!this.head){
+            this.head = node;
+            this.tail = node;
+        }else
+        {
+            this.tail.next = node;
+            this.tail = node;
+        }
+        this.length++;
+     
+    }
+    
+    
+    pop(){
+        if(!this.head){
+            return undefined;
+        }
+        else{
+            
+            var current = this.head;
+            var newtail = current;
+            while(current.next){
+                newtail = current;
+                current = current.next;
+            }
+            this.tail = newtail;
+            this.tail.next = null;
+            this.length--;
+            if(this.length===0){
+                this.head = null;
+                this.tail = null;
+            }
+        }
+        return current;
+    }
+    
+    print(){
+        var arr= [];
+        var curr = this.head;
+        while(curr){
+            arr.push(curr.val);
+            curr = curr.next;
+        }
+        console.log(arr);
+    }
+    
+    shift(){
+        if(!this.head) return undefined;
+        else{
+            var curr = this.head.next;
+            this.head = curr;
+        }
+        this.length--;
+        if(this.length===0){
+            this.head === null;
+            this.tail === null;
+        }
+    }
+    
+    
+    unshift(val){
+        var node = new Node(val);
+        if(!this.head){
+            this.head = node;
+            this.tail = node;
+        }
+        else{
+            node.next = this.head;
+            this.head = node;
+        }
+        this.length++;
+    }
+    
+    
+    get(index){
+        if(index<0||index>=this.length){
+            return undefined;
+        }
+        else{
+            var counter = 0;
+            var curr = this.head;
+            while(counter!==index){
+                curr = curr.next;
+                counter++;
+            }
+        }
+        return curr;
+    }
+    
+    set(index,val){
+        if(index<0||index>=this.length){
+            return undefined;
+        }
+        var foundnode = this.get(index);
+        foundnode.val = val;
+    }
+    
+    insert(index,val){
+        if(index<0||index>=this.length){
+            return undefined;
+        }
+        if(this.length===index) this.push(val);
+        if(index===0) this.unshift(val);
+        var node = new Node(val);
+        var curr = this.head;
+        var foundnode = this.get(index-1);
+        var temp = foundnode.next;
+        foundnode.next = node;
+        node.next = temp;
+        this.length++;
+    }
+    
+    remove(index){
+        if(index<0||index>=this.length){
+            return undefined;
+        }
+        if(index===0) this.shift();
+        if(index===this.length-1) this.pop();
+        var foundnode = this.get(index-1)
+        foundnode.next = foundnode.next.next;
+        this.length--;
+    }
+    
+    reverse(){
+      var node = this.head;
+      this.head = this.tail;
+      this.tail = node;
+      var next;
+      var prev = null;
+      for( var i=0;i<this.length;i++){
+          next = node.next;
+          node.next = prev;
+          prev = node;
+          node = next;
+      }
+      this.print();
+    }
+
+//https://www.youtube.com/watch?v=4NWR385qeY4 - Reverse Linkedlist
+    
+}
+
+
+var link = new LinkedList();
+link.push("roshan0");
+link.push("roshan1");
+link.push("roshan2");
+link.push("roshan3")
+link.set(2,"hey");
+link.insert(1,"Woow!");
+link.print();
+link.remove(3);
+link.print();
+link.reverse();

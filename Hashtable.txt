@@ -1,0 +1,83 @@
+class Hashtable{
+    constructor(val){
+        this.keyMap = new Array(val);
+    }
+    
+    hashVal(val){
+        var total = 0;
+        var prime = 13;
+        for(var i=0;i<val.length;i++){
+            var char = val[i].charCodeAt(0);
+            total = (total*prime +(char-96))%this.keyMap.length;
+        }
+        return total;
+    }
+    
+    
+    set(key,value){
+        var index = this.hashVal(key);
+        if(!this.keyMap[index]){
+            this.keyMap[index] = [];
+        }
+        this.keyMap[index].push([key,value]);
+    }
+    
+    
+    get(key){
+        var index = this.hashVal(key);
+        if(!this.keyMap[index]){
+            return null;
+        }
+        else{
+            for(var i=0;i<this.keyMap[index].length;i++){
+                if(this.keyMap[index][i][0]===key){
+                    console.log(this.keyMap[index][i][1]);
+                }
+            }
+        }
+        return undefined;
+    }
+    
+    keys(){
+        var arr= [];
+        for(var i=0;i<this.keyMap.length;i++){
+            if(this.keyMap[i]){
+                for(var j=0;j<this.keyMap[i].length;j++){
+                    if(!arr.includes(this.keyMap[i][j][0])){
+                        arr.push(this.keyMap[i][j][0]);
+                    }
+                }
+            }
+        }
+        
+        console.log(arr);
+    }
+    
+    
+    values(){
+        var arr= [];
+        for(var i=0;i<this.keyMap.length;i++){
+            if(this.keyMap[i]){
+                for(var j=0;j<this.keyMap[i].length;j++){
+                    if(!arr.includes(this.keyMap[i][j][1])){
+                        arr.push(this.keyMap[i][j][1]);
+                    }
+                }
+            }
+        }
+        console.log(arr);
+    }
+    
+
+}
+
+
+
+var hash = new Hashtable(31)
+hash.set("yellow","Dirty Fellow")
+hash.set("blue","Ocean")
+hash.set("read","Blood")
+hash.get("read");
+hash.get("blue")
+hash.keys();
+hash.values();

@@ -1,0 +1,22 @@
+function lenOfLongestSubArray(arr)
+{
+    let N = arr.length;
+    let maxi = 0;
+    for(let i = 0; i < N - 1; i++){
+        let cnt = 1, j;
+        for(j = i; j < N - 1; j++){
+            if (arr[j + 1] == arr[j] + 1){
+                cnt++;
+            }
+            else{
+                break;
+            }
+        }
+        maxi = Math.max(maxi, cnt);
+        i = j;
+    }
+    return maxi;
+}
+
+var result = lenOfLongestSubArray([2,3,1,2,3,4,5,3,4])
+console.log(result)

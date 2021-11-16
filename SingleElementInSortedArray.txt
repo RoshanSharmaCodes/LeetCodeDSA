@@ -1,0 +1,19 @@
+function findSingleElement(arr){
+    var low = 0;
+    var res;
+    var high = arr.length-1;
+    while(low<=high){
+        if(arr[low]===arr[low+1]||arr[low]===arr[low-1]){
+            
+        }
+        else{
+            res = arr[low];
+        }
+        low++;
+    }
+    
+    return res;
+}
+
+var result = findSingleElement([1,1,2,2,3,3,4,5,5])
+console.log(result);

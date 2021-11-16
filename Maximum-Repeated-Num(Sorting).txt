@@ -1,0 +1,21 @@
+function findMax(arr){
+    var max=0;
+    for(var num=0;num<arr.length;num++){
+        var next = num+1;
+        var count=0;
+        console.log(arr[num],arr[next])
+        while(arr[num]===arr[next]){
+            count++;
+            if(count>max){
+                max = count;
+                number = arr[num]
+            }
+            next++;
+        }
+    }
+    
+    console.log(number);
+    console.log(max+1);
+}
+
+findMax([2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5])

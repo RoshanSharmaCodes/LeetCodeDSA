@@ -1,0 +1,40 @@
+function merge(a1,a2){
+    var i=0,j=0;
+    var arr=[];
+    while(i<a1.length && j<a2.length){
+        if(a1[i]<a2[j])
+        {
+            arr.push(a1[i]);
+            i++;
+        }else
+        {
+            arr.push(a2[j]);
+            j++;
+        }
+    }
+    while(i<a1.length){
+        arr.push(a1[i]);
+        i++;
+    }
+    while(j<a2.length){
+        arr.push(a2[j]);
+        j++;
+    }
+    console.log(arr);
+    return arr;
+    
+}
+
+
+
+function mergesort(arr){
+    if(arr.length<=1) return arr;
+    let mid = Math.floor(arr.length/2);
+    let left = mergesort(arr.slice(0,mid));
+    let right = mergesort(arr.slice(mid));
+    return merge(left,right);
+    
+}
+
+ 
+mergesort([10,2,6,3,1,7])

@@ -1,0 +1,116 @@
+class Graph{
+    constructor(){
+        this.adjacencyList = {};
+    }
+    
+    addVertex(val){
+        if(!this.adjacencyList[val]){
+            this.adjacencyList[val] = [];
+        }
+    }
+    
+    
+    addEdge(val1,val2){
+        if(this.adjacencyList[val1].includes(val2)||this.adjacencyList[val2].includes(val1)){
+            console.log("Already Exist")
+        }
+        else{
+            this.adjacencyList[val1].push(val2);
+        this.adjacencyList[val2].push(val1);
+        }
+        
+    }
+    
+    removeEdge(val1,val2){
+    if(this.adjacencyList[val1]&&this.adjacencyList[val2]){
+    this.adjacencyList[val1] = this.adjacencyList[val1].filter(v => v!==val2)
+    this.adjacencyList[val2] = this.adjacencyList[val2].filter(v => v!==val1) 
+    }else{
+     console.log("Doesn't Exist")   
+    }
+    }
+    
+    removeVertex(val1){
+        for(let val2 of this.adjacencyList[val1]){
+            this.removeEdge(val1,val2);
+        }
+        delete this.adjacencyList[val1];
+    }
+    
+    DFSRecursion(start){
+        var result = [];
+        var visited = {};
+        const list = this.adjacencyList;
+        (function dfs(vertex){
+            if(!vertex) return null;
+            visited[vertex] = true;
+            result.push(vertex);
+            list[vertex].forEach(neighbor => {
+                if(!visited[neighbor]){
+                    return dfs(neighbor)
+                }
+            })
+        })(start)
+        console.log(result);
+    }
+    
+    DFSIterative(start){
+        var result=[];
+        var visited = {};
+        var stack = [];
+        const list = this.adjacencyList;
+        stack.push(start)
+        while(stack.length){
+            var vertex = stack.pop();
+            if(!visited[vertex]){
+            result.push(vertex);
+            visited[vertex] = true;
+            list[vertex].forEach(neighbor => {
+                stack.push(neighbor)
+            })   
+            }
+            
+        }
+        
+        console.log(result);
+    }
+    
+    
+    
+    BFSSearch(element){
+        var result = [];
+        var queue = [];
+        var visited = {};
+        var list = this.adjacencyList;
+        queue.push(element);
+        while(queue.length){
+            var vertex =  queue.shift();
+            if(!visited[vertex]){
+                result.push(vertex);
+                visited[vertex] = true;
+                list[vertex].forEach(v=>{
+                queue.push(v);
+            })
+            }
+        }
+        
+        console.log(result);
+    }
+    
+    
+}
+
+var graph = new Graph();
+graph.addVertex("Tokyo");
+graph.addVertex("Paris");
+graph.addVertex("London");
+graph.addVertex("Delhi");
+graph.addEdge("Tokyo","Delhi")
+graph.addEdge("Tokyo","Paris")
+graph.addEdge("London","Delhi")
+graph.addEdge("London","Delhi")
+graph.addEdge("London","Paris")
+console.log(graph.adjacencyList);
+graph.DFSRecursion("Tokyo");
+graph.DFSIterative("Tokyo")
+graph.BFSSearch("Tokyo")

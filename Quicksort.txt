@@ -1,0 +1,33 @@
+function getpivotindex(arr,start = 0,end = arr.length - 1){
+    const swap = (arr,idx1,idx2) => {
+        var temp = arr[idx1];
+        arr[idx1] = arr[idx2];
+        arr[idx2] = temp;
+    }
+    
+    var pivot = arr[start];
+    var pivotpointer = start;
+    for(var i=start+1; i<=end; i++){
+        if(pivot>arr[i]){
+            swap(arr,pivotpointer,i);
+        }
+    }
+    swap(arr,start,pivotpointer);
+    return pivotpointer;
+}
+
+
+function quicksort(arr,left=0,right=arr.length-1){
+    if(left<right){
+        var pointer = getpivotindex(arr,left,right);
+        //Left
+        quicksort(arr,left,pointer-1);
+        //right
+        quicksort(arr,pointer+1,right);
+    }
+    console.log(arr);
+    return arr;
+}
+
+
+quicksort([4,3,6,8,1,10,0]);

@@ -1,0 +1,68 @@
+function LowerBound(arr,val){
+    var low = 0;
+    var high = arr.length-1;
+    while(low<high){
+        var mid = Math.floor((low+(high-low)/2));
+        if(arr[mid]>=val){                                    
+            high = mid;                                 
+            console.log("high",high);
+        }
+        else{
+            low = mid+1;
+            console.log("low",low);
+        }
+    }
+    if(arr[low]!==val) return undefined;
+    return low;
+    
+}
+var status =  LowerBound([2,3,3,4,4,4,5,5,5,6,7],5);
+console.log(status)
+
+function UpperBound(arr,val){
+    
+    var low = 0;
+    var high = arr.length-1;
+    while(low<high){
+        var mid = Math.floor((low+(high-low)/2));
+        
+        if(arr[mid]<=val){
+            low = mid+1;
+        }
+        else{
+            high = mid;
+        }
+    }
+    
+    return low-1;
+}
+var status  = UpperBound([2,3,4,4,4,5,6,7,7,8],4);
+console.log(status);
+
+
+function frequency(){
+ var up = UpperBound([2,3,4,4,4,5,6,7,7,8],7);
+ var low = LowerBound([2,3,4,4,4,5,6,7,7,8],7);
+ var result = up -low + 1;
+ console.log("Frequency",result);
+}
+
+
+function BinarySearch(arr,val){
+    var low = 0;
+    var high = arr.length-1;
+    while(low<=high){
+        var mid = Math.floor((low+(high-low)/2));
+        if(arr[mid]===val) return true;
+        if(arr[mid]>val){
+            high = mid-1;
+        }
+        else{
+            low = mid+1;
+        }
+    }
+    return false;
+}
+
+var status =  BinarySearch([2,3,4,5,6,7],10);
+console.log(status)

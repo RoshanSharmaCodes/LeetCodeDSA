@@ -1,0 +1,82 @@
+class Node{
+    constructor(val){
+        this.left = null;
+        this.value = val;
+        this.right = null;
+    }
+}
+class Btree{
+    constructor(){
+        this.root = null;
+    }
+    
+    
+    Insert(val){
+        var node = new Node(val);
+        if(this.root===null){
+            this.root = node;
+            return this;
+        }
+        var current = this.root;
+        
+        while(true){
+            if(current.value===val) return undefined;
+            if(val<current.value){
+                if(current.left===null){
+                    current.left = node;
+                    return this;
+                }
+                current = current.left;
+            }
+            else{
+             if(current.right===null){
+                 current.right = node;
+                 return this;
+             }
+             current = current.right;
+            }
+            
+        }
+    }
+
+    DFSPreorder(){
+        var node = this.root;
+        if(node===null) return null;
+        var data=[];
+        function traverse(node){
+            data.push(node.value);
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+        }
+        traverse(node);
+        return data;
+    }
+    
+    
+    SumofLeafNodes(){
+        var node = this.root;
+        var sum=0;
+        function traverse(node){
+            if(node===null) return null;
+            if(node.left===null&&node.right===null){
+                sum = sum + node.value;
+            }
+         traverse(node.left);
+         traverse(node.right);
+        }
+        traverse(node)
+        return sum;
+    }
+}
+
+var tree =  new Btree();
+tree.Insert(1)
+tree.Insert(2)
+tree.Insert(3)
+tree.Insert(4)
+tree.Insert(5)
+console.log(tree);
+var result = tree.DFSPreorder();
+console.log(result);
+var res = tree.SumofLeafNodes();
+console.log(res);
